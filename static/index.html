@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9, user-scalable=0">
+    <meta name="description" content="CropDoc — Simple, clean crop disease detection for farmers.">
+    <meta name="theme-color" content="#2E7D32">
+    <title>CropDoc — Farmer Friendly Checker</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=5">
+    <link rel="manifest" href="/static/manifest.json">
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js" defer></script>
+</head>
+
+<body>
+
+    <!-- ═══ HEADER (Sticky) ═══ -->
+    <header class="site-header">
+        <div class="container header-container">
+            <div class="header-left">
+                <img src="/static/logo.png" alt="CropDoc Logo" class="header-logo">
+                <h1 class="header-title">CropDoc</h1>
+            </div>
+            <div class="header-right">
+                <span class="online-status" id="onlineStatus">
+                    <span class="status-dot"></span> Offline Ready
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ═══ TAGLINE ═══ -->
+    <div class="tagline-bar">
+        <div class="container">
+            <p>Take photo → Detect disease → Get treatment</p>
+        </div>
+    </div>
+
+    <!-- ═══ MAIN APP ═══ -->
+    <main class="app-container">
+        <div class="container">
+
+            <!-- Error Banner -->
+            <div class="error-banner" id="errorBanner" role="alert"></div>
+
+            <!-- Upload Card -->
+            <section class="card upload-card" id="uploadCard">
+                <h2 class="card-title">🌿 Check Your Crop</h2>
+                <p class="card-subtitle">Choose a photo of a sick leaf to see what's wrong.</p>
+
+                <div class="upload-zone" id="uploadZone" role="button" tabindex="0">
+                    <div class="zone-illustration">📸</div>
+                    <p class="zone-text">Tap to select photo</p>
+                    <p class="zone-subtext">JPEG or PNG, max 10MB</p>
+                </div>
+                <input type="file" id="fileInput" accept="image/*" class="hidden">
+
+                <button class="btn btn-primary" id="uploadBtn">
+                    🖼️ Upload Leaf Photo
+                </button>
+            </section>
+
+            <!-- Preview Card -->
+            <section class="card preview-card hidden" id="previewCard">
+                <h2 class="card-title">📸 Leaf Preview</h2>
+                <div class="preview-frame">
+                    <img id="previewImage" src="" alt="Selected leaf preview">
+                </div>
+
+                <div class="preview-actions">
+                    <button class="btn btn-primary" id="analyzeBtn">
+                        🔍 Check Disease
+                    </button>
+                    <button class="btn btn-outline" id="clearBtn">
+                        ↩️ Change Photo
+                    </button>
+                </div>
+            </section>
+
+            <!-- Loading View -->
+            <section class="loading-view hidden" id="loadingSection">
+                <div class="loading-spinner">🌿</div>
+                <p>Checking disease...</p>
+                <small>Analyzing leaf patterns</small>
+            </section>
+
+            <!-- Result Section -->
+            <section class="result-view hidden" id="resultSection">
+                <div class="card result-card">
+                    <div class="result-header">
+                        <div class="result-icon-box" id="resultEmoji">🌿</div>
+                        <div class="result-meta">
+                            <h2 id="resultDisease" class="disease-name">Disease Name</h2>
+                            <p id="resultCrop" class="crop-name">Crop Type</p>
+                        </div>
+                    </div>
+
+                    <div class="confidence-box">
+                        <div class="confidence-label">
+                            Confidence: <span id="resultConfidence">0%</span>
+                        </div>
+                        <div class="confidence-track">
+                            <div class="confidence-fill" id="confidenceBar"></div>
+                        </div>
+                    </div>
+
+                    <div class="result-details">
+                        <div class="detail-block">
+                            <h3>💊 Treatment Steps</h3>
+                            <ul id="resultTreatment" class="treatment-list"></ul>
+                        </div>
+                        <div class="detail-block">
+                            <h3>🛡️ Prevention</h3>
+                            <p id="resultPrevention">Loading...</p>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" id="newScanBtn">
+                        🔄 Check Another Leaf
+                    </button>
+                </div>
+            </section>
+
+            <!-- HISTORY SECTION -->
+            <section class="history-section" id="historySection">
+                <div class="section-header">
+                    <h2 class="section-title">🕒 Previous Reports</h2>
+                    <button class="btn-text" id="clearHistoryBtn">Clear All</button>
+                </div>
+
+                <div class="history-list" id="historyList">
+                    <!-- History cards will be injected here -->
+                    <div class="empty-history" id="emptyHistory">
+                        <p>No reports yet. Your checks will show up here.</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="site-footer">
+        <div class="container">
+            <p class="footer-copy">&copy; 2026 CropDoc</p>
+            <p class="footer-badge">Made for Farmers</p>
+            <p class="footer-contact">support@cropdoc.com</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/static/js/preprocess.js"></script>
+    <script src="/static/js/storage.js"></script>
+    <script src="/static/js/offline.js?v=13"></script>
+    <script src="/static/js/app-farmer.js?v=13"></script>
+    <script>
+        // Start Farmer App
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.FarmerApp) window.FarmerApp.init();
+        });
+    </script>
+
+    <script>
+        // Service worker registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(() => { });
+            });
+        }
+    </script>
+</body>
+
+</html>
