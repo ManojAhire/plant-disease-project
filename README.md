@@ -196,4 +196,4 @@ MIT License — see [LICENSE](LICENSE)
 - **MobileNetV2** — efficient mobile architecture by Google
 
 
-**submission link for google drive** : https://drive.google.com/file/d/1jxvp4xe5UbsICTIia1wBO1AXj3jBjHBc/view?usp=sharing
+**submission link for google drive** : https://drive.google.com/drive/folders/1a7eCQYAQdRMqDTr23JxfvbSiJ3D7__lp?usp=sharing
