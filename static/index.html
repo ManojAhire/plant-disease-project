@@ -11,8 +11,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/style.css?v=5">
-    <link rel="manifest" href="/static/manifest.json">
+    <link rel="stylesheet" href="./css/style.css?v=5">
+    <link rel="manifest" href="./manifest.json">
 
     <!-- API Configuration for GitHub Pages deployment -->
     <script>
@@ -32,7 +32,7 @@
     <header class="site-header">
         <div class="container header-container">
             <div class="header-left">
-                <img src="/static/logo.png" alt="CropDoc Logo" class="header-logo">
+                <img src="./logo.png" alt="CropDoc Logo" class="header-logo">
                 <h1 class="header-title">CropDoc</h1>
             </div>
             <div class="header-right">
@@ -178,7 +178,7 @@
         // Service worker registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').catch(() => { });
+                navigator.serviceWorker.register('./sw.js').catch(() => { });
             });
         }
     </script>

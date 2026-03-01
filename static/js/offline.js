@@ -113,7 +113,7 @@ const CropDocOffline = (() => {
 
         try {
             console.log('🧠 Loading TF.js model...');
-            tfModel = await tf.loadLayersModel('/static/models/model.json');
+            tfModel = await tf.loadLayersModel('./models/model.json');
             console.log('✅ TF.js model loaded successfully');
             console.log('   Input shape:', tfModel.inputs[0].shape);
             console.log('   Output shape:', tfModel.outputs[0].shape);

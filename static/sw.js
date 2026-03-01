@@ -11,15 +11,14 @@ const FONT_CACHE = 'cropdoc-fonts-v1';
 const MODEL_CACHE = 'cropdoc-models-v1';
 
 const STATIC_ASSETS = [
-    '/',
-    '/static/index.html',
-    '/static/css/style.css',
-    '/static/js/app.js',
-    '/static/js/offline.js',
-    '/static/js/preprocess.js',
-    '/static/js/storage.js',
-    '/static/manifest.json',
-    '/knowledge_base.json',
+    './',
+    './index.html',
+    './css/style.css',
+    './js/app.js',
+    './js/offline.js',
+    './js/preprocess.js',
+    './js/storage.js',
+    './manifest.json',
     'https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js'
 ];
 
@@ -29,10 +28,10 @@ const FONT_ASSETS = [
 ];
 
 const MODEL_ASSETS = [
-    '/static/models/model.json',
-    '/static/models/group1-shard1of3.bin',
-    '/static/models/group1-shard2of3.bin',
-    '/static/models/group1-shard3of3.bin'
+    './models/model.json',
+    './models/group1-shard1of3.bin',
+    './models/group1-shard2of3.bin',
+    './models/group1-shard3of3.bin'
 ];
 
 // ─── Install: Pre-cache all critical assets ───
@@ -169,8 +168,8 @@ async function cacheFirst(request, cacheName) {
         if (request.headers.get('Accept')?.includes('text/html')) {
             console.warn(`[SW] Returning app shell for ${request.url}`);
             try {
-                return await caches.match('/static/index.html') ||
-                    await caches.match('/');
+                return await caches.match('./index.html') ||
+                    await caches.match('./');
             } catch (e) {
                 console.error('[SW] Could not serve app shell:', e);
             }
