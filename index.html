@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CropDoc AI - Plant Disease Detection</title>
+    <meta name="description" content="CropDoc AI - 100% offline crop disease detection using TensorFlow.js. Works on any device, no internet needed.">
+    <meta name="theme-color" content="#2E7D32">
+    
+    <!-- Redirect to app - GitHub workflow copies static/* to root, so this becomes the main entry point -->
+    <script>
+        // This page is kept for SEO and as a fallback
+        // The actual app is loaded from index.html (which came from static/index.html after build)
+        console.log('CropDoc AI loading...');
+    </script>
+</head>
+<body>
+    <p>Loading CropDoc AI...</p>
+    <script>
+        // If somehow this file is being served instead of the app, redirect
+        if (!document.querySelector('body').innerHTML.includes('scanPage')) {
+            // This is the root index.html fallback, not the app
+            // Try to load the app
+            window.location.href = './index.html';
+        }
+    </script>
+</body>
+</html>
+

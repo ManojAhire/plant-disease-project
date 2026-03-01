@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CropDoc AI - Plant Disease Detection</title>
+    <script>
+        // SPA redirect: capture the path and load the static app
+        const pathSegments = window.location.pathname.split('/').filter(Boolean);
+        if (pathSegments[0] === 'plant-disease-project') {
+            // We're on GitHub Pages, redirect to static folder with the same hash/query
+            window.location.href = '/plant-disease-project/static/index.html' + window.location.search + window.location.hash;
+        } else {
+            // Local or other deployment
+            window.location.href = '/index.html';
+        }
+    </script>
+</head>
+<body>
+    Loading CropDoc AI...
+</body>
+</html>
