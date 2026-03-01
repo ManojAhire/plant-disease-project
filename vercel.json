@@ -1,12 +1,14 @@
 {
-  "builds": [
-    {
-      "src": "requirements.txt",
-      "use": "@vercel/python"
+  "buildCommand": "pip install --upgrade pip && pip install -r requirements.txt",
+  "devCommand": "uvicorn app:app --host 0.0.0.0 --port 3000",
+  "env": {
+    "PYTHON_VERSION": "3.11"
+  },
+  "functions": {
+    "app.py": {
+      "runtime": "python3.11",
+      "memory": 3008,
+      "maxDuration": 30
     }
-  ],
-  "buildCommand": "pip install -r requirements.txt",
-  "routes": [
-    { "src": "/(.*)", "dest": "/app.py" }
-  ]
+  }
 }
