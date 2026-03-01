@@ -4,7 +4,18 @@
  */
 
 const CropDocOnline = (() => {
-    const API_URL = '/predict';
+    // Get API URL from config, environment, or fallback to localhost
+    let API_URL = '/predict';
+    
+    // Try to get from window config (set by HTML)
+    if (window.CROP_DOC_CONFIG && window.CROP_DOC_CONFIG.apiURL) {
+        API_URL = window.CROP_DOC_CONFIG.apiURL + '/predict';
+    }
+    // Try from sessionStorage (fallback from initial detection)
+    else if (sessionStorage.getItem('cropDocApiUrl')) {
+        API_URL = sessionStorage.getItem('cropDocApiUrl') + '/predict';
+    }
+    
     const TIMEOUT_MS = 15000; // 15 second timeout
 
     /**
