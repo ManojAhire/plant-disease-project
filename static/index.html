@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <base href="/plant-disease-project/">
     <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9, user-scalable=0">
     <meta name="description" content="CropDoc — Simple, clean crop disease detection for farmers.">
     <meta name="theme-color" content="#2E7D32">
@@ -16,11 +17,21 @@
 
     <!-- API Configuration for GitHub Pages deployment -->
     <script>
+        // Detect base URL dynamically for different deployment scenarios
+        let basePath = '/plant-disease-project/';
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            basePath = './';  // Local development
+        }
+        
         window.CROP_DOC_CONFIG = {
-            apiURL: window.location.hostname === 'localhost' 
+            basePath: basePath,
+            apiURL: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
                 ? 'http://localhost:8000'  // Local development
                 : 'https://plant-disease-project.vercel.app'  // Production Vercel backend
         };
+        
+        // Store in sessionStorage for service worker access
+        sessionStorage.setItem('cropDocBasePath', basePath);
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js" defer></script>
@@ -163,24 +174,26 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="/static/js/preprocess.js"></script>
-    <script src="/static/js/storage.js"></script>
-    <script src="/static/js/offline.js?v=13"></script>
-    <script src="/static/js/app-farmer.js?v=13"></script>
-    <script>
-        // Start Farmer App
-        document.addEventListener('DOMContentLoaded', () => {
-            if (window.FarmerApp) window.FarmerApp.init();
-        });
-    </script>
-
+    <script src="./js/preprocess.js"></script>
+    <script src="./js/storage.js"></script>
+    <script src="./js/offline.js?v=13"></script>
+    <script src="./js/app-farmer.js?v=13"></script>
     <script>
         // Service worker registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js').catch(() => { });
+                const basePath = window.CROP_DOC_CONFIG?.basePath || '/plant-disease-project/';
+                const swPath = basePath + 'sw.js';
+                navigator.serviceWorker.register(swPath).catch(err => {
+                    console.warn('Service Worker registration failed:', err);
+                });
             });
         }
+        
+        // Start Farmer App
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.FarmerApp) window.FarmerApp.init();
+        });
     </script>
 </body>
 
